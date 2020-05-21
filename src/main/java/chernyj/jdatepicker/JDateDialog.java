@@ -40,9 +40,6 @@ public class JDateDialog extends JDialog {
 	
 	private static final Color HOVER_COLOR = new Color(0xdddddd);
 	
-	private static final Color DEFAULT_FOREGROUND = new Color(0x333333);
-	private static final Color DEFAULT_BAKCGROUND = new Color(0xdddddd);
-
 	private Color sideLabelForeground;
 	private Color currentDayBackground;
 	private Color currentDayForeground;
@@ -106,8 +103,11 @@ public class JDateDialog extends JDialog {
 		Color primary = componentObserver.getPrimaryColor();
 		Color secondary = componentObserver.getSecondaryColor();
 				
-		primary = (primary.equals(new JPanel().getBackground()) || primary.equals(JDatePicker.DEFAULT_PRIMARY))? secondary : primary;
-		secondary = (secondary.equals(new JPanel().getForeground()) || secondary.equals(JDatePicker.DEFAULT_SECONDARY)) ? primary : secondary;
+		if(primary.equals(JDatePicker.DEFAULT_PRIMARY) || secondary.equals(JDatePicker.DEFAULT_SECONDARY)) {
+			Color temp = primary;
+			primary = secondary;
+			secondary = temp;
+		}
 		
 		sideLabelForeground = primary.getRGB() > new JLabel().getBackground().getRGB() ? secondary : primary;
 		currentDayBackground = primary;

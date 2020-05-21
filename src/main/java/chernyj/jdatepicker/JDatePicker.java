@@ -46,7 +46,7 @@ public class JDatePicker extends JPanel implements ComponentObserver {
 		
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/calendar_gr.png"));
+			image = ImageIO.read(getClass().getResourceAsStream("/emblem.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

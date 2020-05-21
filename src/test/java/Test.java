@@ -18,8 +18,8 @@ public class Test {
 		frame.setLocationRelativeTo(null);
 		
 		
-		picker.setPrimaryColor(new Color(0x036ca0));
-		picker.setSecondaryColor(new Color(0xffffff));
+		//picker.setPrimaryColor(new Color(0x036ca0));
+		//picker.setSecondaryColor(new Color(0xffffff));
 		
 		
 		JButton btn = new JButton("Clear");
