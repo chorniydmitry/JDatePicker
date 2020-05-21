@@ -37,13 +37,18 @@ public class JDateDialog extends JDialog {
 	private static final String[] DAYS_OF_WEEK = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
 	private static final String[] MONTHS = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август",
 			"Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
+	
+	private static final Color HOVER_COLOR = new Color(0xdddddd);
+	
+	private static final Color DEFAULT_FOREGROUND = new Color(0x333333);
+	private static final Color DEFAULT_BAKCGROUND = new Color(0xdddddd);
 
-	private static final Color SIDE_LABEL_COLOR = new Color(0x03a06c); //0x0077ff
-	private static final Color CURRENT_DAY_BACKGROUND_COLOR = new Color(0x03a06c); //0x0077ff
-	private static final Color CURRENT_DAY_FOREROUND_COLOR = new Color(0xffffff);
-	private static final Color HOVER_DAY_BACKGROUND_COLOR = new Color(0xdddddd);
-	private static final Color COMMON_DAY_BACKGROUND_COLOR = new JLabel().getBackground();
-	private static final Color COMMON_DAY_FOREGROUND_COLOR = new JLabel().getForeground();
+	private Color sideLabelForeground;
+	private Color currentDayBackground;
+	private Color currentDayForeground;
+	private Color hoverDayBackground;
+	private Color commonDayBackground;
+	private Color commonDayForeground;
 
 	private static final int MINIMAL_WIDTH = 190;
 	private static final int MINIMAL_HEIGHT = 150;
@@ -77,6 +82,8 @@ public class JDateDialog extends JDialog {
 		this.componentObserver = observer;
 		
 		this.setUndecorated(true);
+		
+		initColors();
 
 		initUpperPanel();
 
@@ -93,6 +100,21 @@ public class JDateDialog extends JDialog {
 		this.setAlwaysOnTop(true);
 
 		this.setVisible(true);
+	}
+	
+	private void initColors() {
+		Color primary = componentObserver.getPrimaryColor();
+		Color secondary = componentObserver.getSecondaryColor();
+				
+		primary = (primary.equals(new JPanel().getBackground()) || primary.equals(JDatePicker.DEFAULT_PRIMARY))? secondary : primary;
+		secondary = (secondary.equals(new JPanel().getForeground()) || secondary.equals(JDatePicker.DEFAULT_SECONDARY)) ? primary : secondary;
+		
+		sideLabelForeground = primary.getRGB() > new JLabel().getBackground().getRGB() ? secondary : primary;
+		currentDayBackground = primary;
+		currentDayForeground = secondary;
+		hoverDayBackground = HOVER_COLOR;
+		commonDayBackground = new JLabel().getBackground();
+		commonDayForeground = new JLabel().getForeground();
 	}
 	
 	public JDateDialog(ComponentObserver observer, int xPos, int yPos) {
@@ -210,11 +232,11 @@ public class JDateDialog extends JDialog {
 
 	private void selectDayLabel(JLabel lblDay, boolean action) {
 		if (action) {
-			lblDay.setBackground(CURRENT_DAY_BACKGROUND_COLOR);
-			lblDay.setForeground(CURRENT_DAY_FOREROUND_COLOR);
+			lblDay.setBackground(currentDayBackground);
+			lblDay.setForeground(currentDayForeground);
 		} else {
-			lblDay.setBackground(COMMON_DAY_BACKGROUND_COLOR);
-			lblDay.setForeground(COMMON_DAY_FOREGROUND_COLOR);
+			lblDay.setBackground(commonDayBackground);
+			lblDay.setForeground(commonDayForeground);
 		}
 
 	}
@@ -254,7 +276,7 @@ public class JDateDialog extends JDialog {
 		private JLabel getSideLabel(String text) {
 			JLabel label = new JLabel(text);
 			label.setHorizontalAlignment(JLabel.CENTER);
-			label.setForeground(SIDE_LABEL_COLOR);
+			label.setForeground(sideLabelForeground);
 			return label;
 
 		}
@@ -264,8 +286,8 @@ public class JDateDialog extends JDialog {
 			JLabel label = new JLabel(text);
 			label.setHorizontalAlignment(JLabel.CENTER);
 			label.setOpaque(true);
-			label.setBackground(CURRENT_DAY_BACKGROUND_COLOR);
-			label.setForeground(CURRENT_DAY_FOREROUND_COLOR);
+			label.setBackground(currentDayBackground);
+			label.setForeground(currentDayForeground);
 			return label;
 		}
 	}
@@ -334,16 +356,16 @@ public class JDateDialog extends JDialog {
 		public void mouseEntered(MouseEvent e) {
 			super.mouseEntered(e);
 			JLabel lbl = (JLabel) e.getSource();
-			if (lbl.getText() == "" || lbl.getBackground() == CURRENT_DAY_BACKGROUND_COLOR)
+			if (lbl.getText() == "" || lbl.getBackground() == currentDayBackground)
 				return;
-			lbl.setBackground(HOVER_DAY_BACKGROUND_COLOR);
+			lbl.setBackground(hoverDayBackground);
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			super.mouseExited(e);
 			JLabel lbl = (JLabel) e.getSource();
-			if (lbl.getText() == "" || lbl.getBackground() == CURRENT_DAY_BACKGROUND_COLOR)
+			if (lbl.getText() == "" || lbl.getBackground() == currentDayBackground)
 				return;
 			lbl.setBackground(new JLabel().getBackground());
 		}

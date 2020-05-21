@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -12,9 +13,13 @@ public class Test {
 		JDatePicker picker = new JDatePicker();
 
 		JFrame frame = new JFrame();
-		frame.setSize(new Dimension(800, 600));
+		frame.setSize(new Dimension(200, 100));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
+		
+		
+		picker.setPrimaryColor(new Color(0x036ca0));
+		picker.setSecondaryColor(new Color(0xffffff));
 		
 		
 		JButton btn = new JButton("Clear");

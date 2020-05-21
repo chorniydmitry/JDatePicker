@@ -44,8 +44,7 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-					<include>calendar_bl</include>
-					<include>calendar_gr</include>
+					<include>emblem.png</include>
 				</includes>
 				</resource>
 		</resources>
