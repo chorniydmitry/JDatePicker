@@ -1,11 +1,12 @@
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import chernyj.jdatepicker.JDatePicker;
+import chernyj.jdatepicker.utils.CalendarUtils;
 
 public class Test {
 
@@ -35,6 +36,15 @@ public class Test {
 		
 
 		frame.setVisible(true);
+		
+		Date date = new Date();
+		System.out.println("current " + date);
+		
+		Date nextWorking = CalendarUtils.getNextWorkingDate(date);
+		
+		System.out.println("next working " + nextWorking);
+		
+		
 	}
 
 }

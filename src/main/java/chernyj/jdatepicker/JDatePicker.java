@@ -27,8 +27,8 @@ public class JDatePicker extends JPanel implements ComponentObserver {
 	private static final Dimension BTN_SELECT_DIM = new Dimension(20, 20);
 	private static final Dimension TF_DATE_DIM = new Dimension(85, 20);
 	
-	public static final Color DEFAULT_PRIMARY = new Color(0xdddddd);
-	public static final Color DEFAULT_SECONDARY = new Color(0x333333);
+	public static final Color DEFAULT_PRIMARY = new Color(0xAAAAAA);
+	public static final Color DEFAULT_SECONDARY = new Color(0x222222);
 
 	private JTextField tfDate;
 	private JButton btnSelect = new JButton();
@@ -108,6 +108,10 @@ public class JDatePicker extends JPanel implements ComponentObserver {
 		tfDate.addActionListener((l) -> doTfDateEnterHit());
 
 	}
+	
+	public void setDate(Date date) {
+		tfDate.setText(new SimpleDateFormat("dd.MM.yyyy").format(date));
+	}
 
 	private void doTfDateEnterHit() {
 		Date date = getDate();
@@ -119,6 +123,10 @@ public class JDatePicker extends JPanel implements ComponentObserver {
 
 	public Date getDate() {
 		return StringToDateParser.parse(tfDate.getText());
+	}
+	
+	public boolean isDateSet() {
+		return tfDate.getText().isEmpty() ? false: true;
 	}
 
 	private void doBtnSelectClick() {

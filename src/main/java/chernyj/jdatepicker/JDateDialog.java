@@ -39,6 +39,7 @@ public class JDateDialog extends JDialog {
 			"Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
 	
 	private static final Color HOVER_COLOR = new Color(0xdddddd);
+	private static final Color COMMON_FOREGROUND = new Color(0x777777);
 	
 	private Color sideLabelForeground;
 	private Color currentDayBackground;
@@ -70,7 +71,6 @@ public class JDateDialog extends JDialog {
 
 	private int selectedDay;
 
-	
 	private void commonConstructor(ComponentObserver observer) {
 		this.setMinimumSize(new Dimension(MINIMAL_WIDTH, MINIMAL_HEIGHT));
 		
@@ -114,7 +114,7 @@ public class JDateDialog extends JDialog {
 		currentDayForeground = secondary;
 		hoverDayBackground = HOVER_COLOR;
 		commonDayBackground = new JLabel().getBackground();
-		commonDayForeground = new JLabel().getForeground();
+		commonDayForeground = COMMON_FOREGROUND;
 	}
 	
 	public JDateDialog(ComponentObserver observer, int xPos, int yPos) {
